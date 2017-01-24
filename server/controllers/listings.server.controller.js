@@ -48,9 +48,31 @@ exports.update = function(req, res) {
   var listing = req.listing;
   console.log("updating...");
 
+  listing.code = req.body.code;
+  listing.name = req.body.name;
+  listing.address = req.body.address;
+
   /* Replace the article's properties with the new properties found in req.body */
   /* save the coordinates (located in req.results if there is an address property) */
   /* Save the article */
+
+
+
+  if(req.address) {
+    listings.coordinates = {
+        latitude: req.latitude,
+        longitude: req.longitude
+    };
+  }
+  // copied from create function
+  listing.save(function(err) {
+    if(err) {
+      console.log(err);
+      res.status(400).send(err);
+    } else {
+      res.json(listing);
+    }
+  });
 
 };
 
@@ -63,7 +85,8 @@ exports.delete = function(req, res) {
       return console.error(err);
     } else {
 
-      res.json(listing);
+      // res.json(listing);
+      res.end();
       return console.log("record deleted");
     }
   })
