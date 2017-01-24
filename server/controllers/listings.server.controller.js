@@ -56,8 +56,6 @@ exports.update = function(req, res) {
   /* save the coordinates (located in req.results if there is an address property) */
   /* Save the article */
 
-
-
   if(req.address) {
     listings.coordinates = {
         latitude: req.latitude,
